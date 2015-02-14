@@ -7,34 +7,36 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
 
     valid_files <- list.files(path = dir_vect, pattern = "\\.csv$")
 
-    i = 1
-
     if(length(valid_files) > 0) {
+
+    	i = 1
+
     	full_path <- paste(dir_vect, valid_files[i], sep = "")
     	data_file <- file.path(full_path, fsep = .Platform$file.sep)
-    	df_contents <- read.csv(data_file)
+    	file_data <- read.csv(data_file)
+    	valid_data <- file_data[complete.cases(file_data),][,]
 
-    	## 'pollutant' is a character vector of length 1 indicating
-        ## the name of the pollutant for which we will calculate the
-        ## mean; either "sulfate" or "nitrate".
-    	if(polltnt_vect == "sulfate" | polltnt_vect == "nitrate") {
+    	print(valid_data)
 
-    		## 'id' is an integer vector indicating the monitor ID numbers
-	        ## to be used	
-    		if(id > 0 && id < 333) {
-    			print("ID Valid")
-    			
-    			## Return the mean of the pollutant across all monitors list
-		        ## in the 'id' vector (ignoring NA values)
+	} else{
+    	print("No CSV files found")
+    	return
+    }
 
-    		} else {
-    			print("ID Invalid")
-    		}
+    ## 'pollutant' is a character vector of length 1 indicating
+    ## the name of the pollutant for which we will calculate the
+    ## mean; either "sulfate" or "nitrate".
+    if(polltnt_vect == "sulfate" | polltnt_vect == "nitrate") {
+
+    	## 'id' is an integer vector indicating the monitor ID numbers
+		## to be used	
+    	if(id > 0 && id < 333) {
+    		print("ID Valid")
     	} else {
     		print("Invalid pollutant argument")
     	}
-	} else{
-    	print("No CSV files found")
-    }
+			## Return the mean of the pollutant across all monitors list
+		    ## in the 'id' vector (ignoring NA values)
 
+	}	        
 }

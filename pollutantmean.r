@@ -11,11 +11,12 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
 
     	i = 1
 
-    	full_path <- paste(dir_vect, valid_files[i], sep = "")
-    	data_file <- file.path(full_path, fsep = .Platform$file.sep)
-    	file_data <- read.csv(data_file)
-    	valid_data <- file_data[complete.cases(file_data),][,]
-
+    	for(i in length(valid_files)) {
+    		full_path <- paste(dir_vect, valid_files[i], sep = "")
+    		data_file <- file.path(full_path, fsep = .Platform$file.sep)
+    		file_data <- read.csv(data_file)
+    		valid_data <- file_data[complete.cases(file_data),][,]
+    	}
     	print(valid_data)
 
 	} else{

@@ -1,6 +1,10 @@
 pollutantmean <- function(directory, pollutant, id = 1:332) {
         ## 'directory' is a character vector of length 1 indicating
         ## the location of the CSV files
+    dir_vect <- as.character(directory)
+    data_file <- file.path(dir_vect, fsep = .Platform$file.sep)
+    df_contents <- read.csv(data_file)
+    print(df_contents)
 
         ## 'pollutant' is a character vector of length 1 indicating
         ## the name of the pollutant for which we will calculate the
@@ -11,4 +15,5 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
 
         ## Return the mean of the pollutant across all monitors list
         ## in the 'id' vector (ignoring NA values)
+
 }

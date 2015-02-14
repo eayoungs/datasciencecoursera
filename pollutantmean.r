@@ -12,14 +12,18 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     	full_path <- paste(dir_vect, valid_files[i], sep = "")
     	data_file <- file.path(full_path, fsep = .Platform$file.sep)
     	df_contents <- read.csv(data_file)
-    	
+
     	## 'pollutant' is a character vector of length 1 indicating
         ## the name of the pollutant for which we will calculate the
         ## mean; either "sulfate" or "nitrate".
     	if(polltnt_vect == "sulfate" | polltnt_vect == "nitrate") {
-    		print("Valid")
+    		if(id > 0 && id < 333) {
+    			print("ID Valid")
+    		} else {
+    			print("ID Invalid")
+    		}
     	} else {
-    		print("Invalid")
+    		print("Invalid pollutant argument")
     	}
 	} else{
     	print("No CSV files found")

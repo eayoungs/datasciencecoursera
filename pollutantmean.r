@@ -10,14 +10,21 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     if(length(valid_files) > 0) {
 
     	i = 1
+    	full_path <- paste(dir_vect, valid_files[i], sep = "")
+    	data_file <- file.path(full_path, fsep = .Platform$file.sep)
+    	file_data <- read.csv(data_file)
+    	dir_data <- file_data[complete.cases(file_data),][,]
 
-    	for(i in length(valid_files)) {
+    	print(class(dir_data))
+
+    	for(i in 2:length(valid_files)) {
     		full_path <- paste(dir_vect, valid_files[i], sep = "")
     		data_file <- file.path(full_path, fsep = .Platform$file.sep)
     		file_data <- read.csv(data_file)
     		valid_data <- file_data[complete.cases(file_data),][,]
+    		dir_data <- rbind(dir_data, valid_data)
     	}
-    	print(valid_data)
+    	print(dir_data)
 
 	} else{
     	print("No CSV files found")

@@ -15,8 +15,6 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     	file_data <- read.csv(data_file)
     	dir_data <- file_data[complete.cases(file_data),][,]
 
-    	print(class(dir_data))
-
     	for(i in 2:length(valid_files)) {
     		full_path <- paste(dir_vect, valid_files[i], sep = "")
     		data_file <- file.path(full_path, fsep = .Platform$file.sep)
@@ -24,7 +22,6 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     		valid_data <- file_data[complete.cases(file_data),][,]
     		dir_data <- rbind(dir_data, valid_data)
     	}
-    	print(dir_data)
 
 	} else{
     	print("No CSV files found")
@@ -39,7 +36,9 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     	## 'id' is an integer vector indicating the monitor ID numbers
 		## to be used	
     	if(id > 0 && id < 333) {
-    		print("ID Valid")
+    		print(polltnt_vect)
+    		print(id)
+    		print(subset(dir_data, ID == id, select=c(polltnt_vect, "ID")))
     	} else {
     		print("Invalid pollutant argument")
     	}
